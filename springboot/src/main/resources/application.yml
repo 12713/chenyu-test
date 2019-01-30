@@ -1,0 +1,26 @@
+server:
+  port: 8880
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/user?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 123456
+
+
+mybatis:
+    type-aliases-package: org.srm.mdm.infra.mapper
+                            org.srm.mdm.domain.entity
+    mapper-locations: classpath:mapper/*.xml
+    configuration:
+      #自动驼峰转换
+     map-underscore-to-camel-case: true
+pagehelper:
+  helperDialect: mysql
+  reasonable: trueq
+  supportMethodsArguments: true
+  params: count=countSql
+
+
+
+
+

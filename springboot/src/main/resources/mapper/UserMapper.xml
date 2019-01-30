@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.srm.mdm.infra.mapper.StudentMapper">
+
+    <!--<resultMap id="BaseResultMap" type="org.srm.mdm.domain.entity.User">
+        <result column="authority_id" property="authorityId" jdbcType="DECIMAL" />
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+        <result column="authority_type_code" property="authorityTypeCode" jdbcType="VARCHAR" />
+        <result column="include_all_flag" property="includeAllFlag" jdbcType="VARCHAR" />
+        <result column="object_version_number" property="objectVersionNumber" jdbcType="DATE" />
+        <result column="creation_date" property="creationDate" jdbcType="DATE" />
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+        <result column="last_updated_by" property="lastUpdatedBy" jdbcType="VARCHAR" />
+        <result column="last_update_date" property="lastUpdateDate" jdbcType="DECIMAL" />
+    </resultMap>-->
+    <!--/* LIMIT #{page},#{rows}    parameterType="java.util.Map" */-->
+   <select id="search" resultType="User">
+       SELECT
+          `authority_id` ,
+          `user_id` ,
+          `authority_type_code` ,
+          `include_all_flag` ,
+          `object_version_number` ,
+          `creation_date` ,
+           `created_by` ,
+          `last_updated_by` ,
+          `last_update_date`
+        FROM
+          hiam_user_authority
+   </select>
+    <select id="count" resultType="int">
+        SELECT COUNT(*) FROM hiam_user_authority
+    </select>
+    <insert id="insert" parameterType="org.srm.mdm.domain.entity.User">
+        INSERT INTO `hiam_user_authority` (
+          `user_id`,
+          `authority_type_code`,
+          `include_all_flag`,
+          `object_version_number`,
+          `creation_date`,
+          `created_by`,
+          `last_updated_by`,
+          `last_update_date`
+        )
+        VALUES(
+          #{userId},
+          #{authorityTypeCode},
+          #{includeAllFlag},
+          #{objectVersionNumber},
+          #{creationDate},
+          #{createdBy},
+          #{lastUpdatedBy},
+          #{lastUpdateDate}
+        )
+    </insert>
+    <select id="list" parameterType="int" resultType="User">
+        select
+         `authority_id` ,
+          `user_id` ,
+          `authority_type_code` ,
+          `include_all_flag` ,
+          `object_version_number` ,
+          `creation_date` ,
+           `created_by` ,
+          `last_updated_by` ,
+          `last_update_date`
+        from hiam_user_authority
+        where authority_id=#{id}
+    </select>
+    <update id="update" parameterType="org.srm.mdm.domain.entity.User">
+       UPDATE
+          `hiam_user_authority`
+        SET
+          `user_id` =#{userId},
+          `authority_type_code` =#{authorityTypeCode},
+          `include_all_flag` =#{includeAllFlag},
+          `object_version_number` =#{objectVersionNumber},
+          `creation_date` =#{creationDate},
+          `created_by` =#{createdBy},
+          `last_updated_by` =#{lastUpdatedBy},
+          `last_update_date` =#{lastUpdateDate}
+        WHERE `authority_id` =#{authorityId}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM hiam_user_authority WHERE authority_id IN
+        <foreach  item="id" collection="array" open="(" separator="," close=")">
+            (#{id})
+        </foreach>
+    </delete>
+</mapper>
