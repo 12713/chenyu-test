@@ -18,12 +18,6 @@ import java.util.Map;
 /**
  * 增删改查demo
  */
- /**
-
-
-
- 士大夫大师傅似的
- */
 @RestController
 @RequestMapping("/srm")
 public class StudentController {
